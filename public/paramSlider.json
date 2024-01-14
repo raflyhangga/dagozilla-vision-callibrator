@@ -1,0 +1,162 @@
+{
+    "/vision/camera_capture/mask/keeper_masking/start_angle" : {
+      "min" : 0,
+      "max" : 360,
+      "step" : 1
+    },
+    "/vision/camera_capture/mask/keeper_masking/end_angle" : {
+      "min" : 0,
+      "max" : 360,
+      "step" : 1
+    },
+    "/vision/ball_detection/in_range/upper/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/ball_detection/in_range/upper/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/ball_detection/in_range/upper/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/ball_detection/in_range/lower/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/ball_detection/in_range/lower/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/ball_detection/in_range/lower/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/in_range/upper/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/in_range/upper/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/in_range/upper/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/in_range/lower/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/in_range/lower/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/in_range/lower/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/field_detection/in_range/upper/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/field_detection/in_range/upper/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/field_detection/in_range/upper/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/field_detection/in_range/lower/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/field_detection/in_range/lower/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/line_detection/field_detection/in_range/lower/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/obstacle_detection/in_range/lower/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/obstacle_detection/in_range/lower/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/obstacle_detection/in_range/lower/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/obstacle_detection/in_range/upper/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/obstacle_detection/in_range/upper/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/obstacle_detection/in_range/upper/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/friend_detection/in_range/upper/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/friend_detection/in_range/upper/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/friend_detection/in_range/upper/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/friend_detection/in_range/lower/v0" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/friend_detection/in_range/lower/v1" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    },
+    "/vision/friend_detection/in_range/lower/v2" : {
+      "min" : 0,
+      "max" : 255,
+      "step" : 1
+    }
+  }

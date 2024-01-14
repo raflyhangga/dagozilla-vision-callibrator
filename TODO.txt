@@ -1,0 +1,4 @@
+1. Ganti semua harcode jadi komponen
+2. Bikin page video dan log
+3. Routing
+4. Tes ke ROS
