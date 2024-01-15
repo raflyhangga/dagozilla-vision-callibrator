@@ -1,9 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
-# get first argument
+# Check if IP argument is provided
 if [ -z "$1" ]; then
-    echo "No IP argument supplied"
-    exit 1
+  echo "Usage: ./run.sh [ip argument]"
+  exit 1
 fi
 
-export NUXT_APP_URL_PARAM="http://$1:5820" && npm run dev
+# Set IP as environment variable
+export  VUE_APP_ROBOT=$1
+
+# Run Nuxt 3 application
+npm run dev

@@ -35,7 +35,7 @@
                     <div>
                             <UInput v-model="value"/>
                         <div class="flex justify-end mt-4">
-                            <UButton>Submit</UButton>
+                            <UButton @click.prevent="updateData">Submit</UButton>
                         </div>
                     </div>
                 </UCard>
@@ -64,12 +64,15 @@
     const {title,data,path} = defineProps(['title','data','path'])
 
     const value = ref(data)
-    let url = path + `/${title}`
+    const runtimeConfig = useRuntimeConfig();
+    const url = 'http://' + runtimeConfig.public.robotIP + ':5820/param/';
+    const keyParam = path + `/${title}`
 
     async function updateData() {
-        await $fetch(`${url}/param`,{
+        await $fetch(url,{
             method: 'PATCH',
-            body: {[`${url}`]:data}
+            header: {"content-Type":"application/json"},
+            body: {[`${keyParam}`]:data}
         }).then((res) =>{
             console.log(`The value of ${url} successfully updated!`);
         }).catch((err)=>{
