@@ -17,5 +17,6 @@ export default defineNuxtConfig({
     public: {
       robotIP: process.env.VUE_APP_ROBOT
     }
-  }
+  },
+  css:['~/assets/css/cropper.css']
 })
