@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-4 items-center">
+    <div class="flex flex-col items-center gap-4">
         <div 
             v-if="isThereDetection(idStream)" 
             class="flex flex-row items-center gap-5 shadow-xl rounded-xl bg-white py-3 px-4"

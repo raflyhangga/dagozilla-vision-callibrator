@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <Title>{{ id }} | Log</Title>
+    </Head>
     <div class="mx-[15em] mt-[3em] mb-[3em]">
         <Cards :data="dataAPI['log'][id]" :head="`/log/${id}`"></Cards>
     </div>

@@ -4,9 +4,15 @@ require("dotenv").config()
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: [ '@nuxt/image','@nuxt/ui',
-    // '@nuxtjs/axios'
-  ],
+  modules: [ '@nuxt/image','@nuxt/ui'],
+  app:{
+    head:{
+      title:'Dagozilla Parameter Callibrator',
+      // link:[
+      //   {rel:'icon',type:'image/x-icon',href:'public/favicon.ico'}
+      // ]
+    }
+  },
   image: {
     inject:true
   },

@@ -1,6 +1,9 @@
 <template>
+    <Head>
+        <Title>Main | Vision</Title>
+    </Head>
     <div class="mx-[15em] mt-[3em] mb-[3em]">
-        <Cards :data="dataAPI['vision'][id]" :head="`/vision/${id}`" :id-stream="id"></Cards>
+        <Cards :data="filteredData" :head="``"></Cards>
     </div>
 </template>
 
@@ -9,12 +12,11 @@
     const url = 'http://' + runtimeConfig.public.robotIP + ':5820/param/';
     const {data} = await useFetch(url)
     const dataAPI = data.value
-    const {id} = useRoute().params
-
-    console.log(dataAPI)
 
     definePageMeta({
         layout:'video'
     })
+
+    const {camera_capture,ball_detection,line_detection,obstacle_detection,friend_detection,...filteredData} = dataAPI['vision']
 
 </script>

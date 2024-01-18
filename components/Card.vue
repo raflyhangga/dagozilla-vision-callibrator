@@ -66,6 +66,7 @@
 
 <script setup>
     import sliderData from '/src/paramSlider.json'
+    import axios from 'axios';
 
     const {title,data,path} = defineProps(['title','data','path'])
 
@@ -78,20 +79,35 @@
     const isPathSlider = (value) => sliderData.hasOwnProperty(value)
     const isDataBoolean = (value) => typeof value === 'boolean'
 
-    async function updateData() {
+    // async function updateData() {
+    //     if(isDataBoolean(paramValue.value)){
+    //         paramValue.value = !paramValue.value
+    //     }
+    //     console.log(`Updating "${keyParam}" value to ${paramValue.value}`)
+    //     await $fetch(url,{
+    //         method: 'patch',
+    //         header: {"content-Type":"application/json"},
+    //         body: {[`${keyParam}`]:paramValue.value}
+    //     }).then((res) =>{
+    //         console.log(`The value of ${url} successfully updated!`);
+    //     }).catch((err)=>{
+    //         console.log(err.message);
+    //     })
+    // }
+
+    function updateData() {
         if(isDataBoolean(paramValue.value)){
             paramValue.value = !paramValue.value
         }
         console.log(`Updating "${keyParam}" value to ${paramValue.value}`)
-        await $fetch(url,{
-            method: 'patch',
-            header: {"content-Type":"application/json"},
-            body: {[`${keyParam}`]:paramValue.value}
-        }).then((res) =>{
-            console.log(`The value of ${url} successfully updated!`);
-        }).catch((err)=>{
-            console.log(err.message);
-        })
+        axios
+            .patch(url,{[`${keyParam}`]:paramValue.value})
+            .then((res) => {
+                console.log(`Value of ${keyParam} into ${paramValue.value} successfully updated!`);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 
 </script>

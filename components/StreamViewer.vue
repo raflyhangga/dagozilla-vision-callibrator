@@ -12,7 +12,11 @@
                 />
             </div>
             <div v-else>
-                <img :id="`image${detect}`" :src="urlSnap" alt="" class="block max-w-full rounded-md shadow-xl">
+                <img
+                    :id="`image${detect}`" 
+                    :src="urlSnap" alt="" 
+                    class="block max-w-full rounded-md shadow-xl"
+                >
                 <div v-if="!cropMode">
                     <UButton
                         label="Crop Image"
@@ -34,7 +38,11 @@
                         </div>
                     </template>
                     <div>
-                        <canvas :id="`cropped${detect}`" :class="{'w-0':!isCroped,'h-0':!isCroped,'mt-2':isCroped}" class="rounded-md mx-auto shadow-md"/>
+                        <canvas 
+                            :id="`cropped${detect}`" 
+                            :class="{'w-0':!isCroped,'h-0':!isCroped,'mt-2':isCroped}" 
+                            class="rounded-md mx-auto shadow-md"
+                        />
                         <div v-if="isCroped">
                             <UButton
                                 label="Send"
@@ -53,9 +61,10 @@
 
 <script setup>
     import Cropper from 'cropperjs';
-    import * as cc from "~/assets/libs/color-convert.js";
+    import * as cc from "/src/color-convert.js";
     import * as d3 from 'd3';
-    cc
+    import axios from 'axios';
+
     // Initialize
     const {fullPath,detect} = defineProps(['fullPath','detect'])
     const runtimeConfig = useRuntimeConfig();
@@ -97,7 +106,7 @@
         const context = canvas.getContext('2d');
         
         if (croppedCanvas.width * croppedCanvas.height < 25000) {
-            isCroped.value = !isCroped.value
+            isCroped.value = true
             canvas.width = croppedCanvas.width;
             canvas.height = croppedCanvas.height;
 
@@ -166,16 +175,28 @@
             [`${fullPath}/in_range/upper/v2`]: colors.v2.max,
             };
 
-            // FOR DEPLOYING ONLY
-            $fetch(urlSend,{
-                method: 'PATCH',
-                header: {"content-Type":"application/json"},
-                body: colorParam
-                }).then((res) =>{
-                    console.log(`The value of ${url} successfully updated!`);
-                }).catch((err)=>{
-                    console.log(err.message);
+            console.log("Sending....")
+            console.log(colorParam)
+
+            axios
+                .patch(urlSend, colorParam)
+                .then((res) => {
+                    console.log(`Value of ${fullPath}/in_range successfully updated!`);
                 })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+
+            // FOR DEPLOYING ONLY
+            // $fetch(urlSend,{
+            //     method: 'PATCH',
+            //     header: {"content-Type":"application/json"},
+            //     body: colorParam
+            //     }).then((res) =>{
+            //         console.log(`The value of ${url} successfully updated!`);
+            //     }).catch((err)=>{
+            //         console.log(err.message);
+            //     })
         }
         catch(err){
             console.log(err.message)

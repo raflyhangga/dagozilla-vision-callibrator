@@ -25,11 +25,11 @@
 
 <script setup>
     const items = [
-        {label:'configuration',icon:'i-heroicons-cog-6-tooth-solid',to:'/video/'},
-        {label:'camera_capture',icon:'i-heroicons-camera-20-solid',to:'/video/camera_capture'},
-        {label:'ball_detection',icon:'i-heroicons-globe-alt-solid',to:'/video/ball_detection'},
-        {label:'line_detection',icon:'i-heroicons-bars-arrow-down',to:'/video/line_detection'},
-        {label:'obstacle_detection',icon:'i-heroicons-swatch-solid',to:'/video/obstacle_detection'},
-        {label:'friend_detection',icon:'i-heroicons-users-16-solid',to:'/video/friend_detection'}
+        {label:'configuration',icon:'i-heroicons-cog-6-tooth-solid',to:'/vision/'},
+        {label:'camera_capture',icon:'i-heroicons-camera-20-solid',to:'/vision/camera_capture'},
+        {label:'ball_detection',icon:'i-heroicons-globe-alt-solid',to:'/vision/ball_detection'},
+        {label:'line_detection',icon:'i-heroicons-bars-arrow-down',to:'/vision/line_detection'},
+        {label:'obstacle_detection',icon:'i-heroicons-swatch-solid',to:'/vision/obstacle_detection'},
+        {label:'friend_detection',icon:'i-heroicons-users-16-solid',to:'/vision/friend_detection'}
     ]
 </script>

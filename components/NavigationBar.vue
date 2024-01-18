@@ -4,7 +4,7 @@
 
         <div class="flex flex-row gap-6 text-lg text-gray-600">
             <nuxt-link to="/" class="font-bold px-2 hover:text-amber-400" active-class="text-amber-400">Home</nuxt-link>
-            <nuxt-link to="/video" class="font-bold px-2 hover:text-amber-400" active-class="text-amber-400">Video</nuxt-link>
+            <nuxt-link to="/vision" class="font-bold px-2 hover:text-amber-400" active-class="text-amber-400">Vision</nuxt-link>
             <nuxt-link to="/log/ball_task" class="font-bold px-2 hover:text-amber-400" active-class="text-amber-400">Log</nuxt-link>
         </div>
     </div>    
