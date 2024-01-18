@@ -1,8 +1,6 @@
 <template>
-
     <div>
     <UButton label="Open" @click="handleOpenModal" />
-
     <UModal v-model="isOpen">
         <div class="p-4">
             <div v-if="!pictureTaken">
@@ -14,7 +12,7 @@
                 />
             </div>
             <div v-else>
-                <img id="image" :src="urlSnap" alt="" class="block max-w-full rounded-md shadow-xl">
+                <img :id="`image${detect}`" :src="urlSnap" alt="" class="block max-w-full rounded-md shadow-xl">
                 <div v-if="!cropMode">
                     <UButton
                         label="Crop Image"
@@ -29,14 +27,24 @@
                         class="mt-4"
                     />
                 </div>
-                <canvas id="cropped" :class="{'w-0':!isCroped,'h-0':!isCroped,'mt-5':isCroped}" />
-                <div v-if="isCroped">
-                    <UButton
-                        label="Send"
-                        @click="handlerSend"
-                        class="mt-4"
-                    />
-                </div>
+                <UCard class="my-5 w-[75%] mx-auto" v-show="isCroped">
+                    <template #header>
+                        <div>
+                            Crop Result Here:
+                        </div>
+                    </template>
+                    <div>
+                        <canvas :id="`cropped${detect}`" :class="{'w-0':!isCroped,'h-0':!isCroped,'mt-2':isCroped}" class="rounded-md mx-auto"/>
+                        <div v-if="isCroped">
+                            <UButton
+                                label="Send"
+                                @click="handlerSend"
+                                class="mt-5"
+                            />
+                        </div>
+                    </div>
+
+                </UCard>
             </div>
         </div>
     </UModal>
@@ -45,19 +53,23 @@
 
 <script setup>
     import Cropper from 'cropperjs';
-    // DEBUGIN PURPOSES
-    const dummySnap = ref('https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ')
-    // ====================================
-
+    import * as cc from "~/assets/libs/color-convert.js";
+    import * as d3 from 'd3';
+    cc
+    // Initialize
+    const {fullPath,detect} = defineProps(['fullPath','detect'])
+    const runtimeConfig = useRuntimeConfig();
+    const colorCode = detect === "obstacle" ? 52 : 40;
+    // State
     const cropMode = ref(false)
     const isOpen = ref(false)
     const isCroped = ref(false)
     const pictureTaken = ref(false)
     const cropper = ref()
-    const runtimeConfig = useRuntimeConfig();
+    const urlSend = 'http://' + runtimeConfig.public.robotIP + ':5820/param/'
     const urlStream = 'http://' + runtimeConfig.public.robotIP + ':5812/stream?topic=/log/camera_task/median_blur_image';
     const urlSnap = 'http://' + runtimeConfig.public.robotIP + ':5812/snapshot?topic=/log/camera_task/median_blur_image';
-
+    
 
     const handleOpenModal=()=>{
         isOpen.value = true
@@ -68,7 +80,7 @@
 
     const handleCropImage = () => {
         cropMode.value = !cropMode.value
-        const image = document.querySelector('#image');
+        const image = document.querySelector('#image' + detect);
         console.log(image)
         cropper.value = new Cropper(image, {
             aspectRatio: 0,
@@ -76,15 +88,13 @@
             minContainerHeight: image.height,
             });
             const croppedCanvas = document.querySelector('#cropped');
-            // croppedCanvas.width = 0;
-            // croppedCanvas.height = 0;
         }
 
     const handleCropper = () => {
         isCroped.value = !isCroped.value
         const croppedCanvas = cropper.value.getCroppedCanvas();
 
-        const canvas = document.querySelector('#cropped');
+        const canvas = document.querySelector('#cropped'+detect);
         const context = canvas.getContext('2d');
 
         if (croppedCanvas.width * croppedCanvas.height < 25000) {
@@ -97,6 +107,23 @@
             alert("Cropped area is too big!");
         }
     }
+
+    const cleanData = (arr) => {
+        const q1 = d3.quantile(arr, 0.25);
+        const q3 = d3.quantile(arr, 0.75);
+        const iqr = q3 - q1;
+    
+        const lower_bound = q1 - 1.5 * iqr;
+        const upper_bound = q3 + 1.5 * iqr;
+    
+        let min = arr.find((num) => num >= lower_bound);
+        let max = arr.find((num) => num >= upper_bound);
+    
+        if (min === undefined || min < 0 || min > 255) min = arr[0];
+        if (max === undefined || max < 0 || max > 255) max = arr[arr.length - 1];
+    
+        return { min: min, max: max };
+    };
 
     const handlerSend = () => {
         const canvas = document.querySelector('#cropped' + detect);
@@ -111,6 +138,7 @@
             v1: [],
             v2: [],
             };
+            
 
             for (let i = 4; i < imageData.data.length; i = i + 4) {
             const { v0, v1, v2 } = colorCode === 40 ? cc.rgbToHsv(imageData.data[i], imageData.data[i + 1], imageData.data[i + 2]) : cc.rgbToHsv(imageData.data[i], imageData.data[i + 1], imageData.data[i + 2]);
@@ -138,21 +166,23 @@
             [`${fullPath}/in_range/upper/v2`]: colors.v2.max,
             };
 
-            // // FOR DEPLOYING ONLY
-            // $fetch(url,{
-            //     method: 'PATCH',
-            //     header: {"content-Type":"application/json"},
-            //     body: colorParam
-            //     }).then((res) =>{
-            //         console.log(`The value of ${url} successfully updated!`);
-            //     }).catch((err)=>{
-            //         console.log(err.message);
-            //     })
+            // FOR DEPLOYING ONLY
+            $fetch(urlSend,{
+                method: 'PATCH',
+                header: {"content-Type":"application/json"},
+                body: colorParam
+                }).then((res) =>{
+                    console.log(`The value of ${url} successfully updated!`);
+                }).catch((err)=>{
+                    console.log(err.message);
+                })
         }
         catch(err){
             console.log(err.message)
         }
     }
+
+
 }
 
 </script>

@@ -1,6 +1,6 @@
 <template>
         <div v-if="(!isObject(data))" class="px-7 py-5">
-            <div v-if="isPathSlider(url)">
+            <div v-if="isPathSlider(`${path}/${title}`)">
                 <UCard>
                     <template #header>
                         <div class="font-semibold">
@@ -8,9 +8,15 @@
                         </div>
                     </template>
                     <div class="flex flex-row items-center justify-between gap-2">
-                        <URange v-model="value" :min="sliderData[path + `/${title}`]['min']" :max="sliderData[path + `/${title}`]['max']" size="sm"></URange>
+                        <URange
+                            v-model="paramValue" 
+                            :min="sliderData[path + `/${title}`]['min']" 
+                            :max="sliderData[path + `/${title}`]['max']" 
+                            size="sm"
+                            v-on:mouseup="updateData"
+                         />
                         <div class="w-[5em]">
-                            <UInput v-model="value" type="number"/>
+                            <UInput v-model="paramValue" type="number"/>
                         </div>
                     </div>
                 </UCard>
@@ -22,7 +28,7 @@
                             {{ title }}
                         </div>
                     </template>
-                    <UToggle v-model="value" size="xl" />
+                    <UToggle v-model="paramValue" size="xl" @click="updateData" />
                 </UCard>
             </div>
             <div v-else>
@@ -33,7 +39,7 @@
                         </div>
                     </template>
                     <div>
-                            <UInput v-model="value"/>
+                            <UInput v-model="paramValue"/>
                         <div class="flex justify-end mt-4">
                             <UButton @click.prevent="updateData">Submit</UButton>
                         </div>
@@ -51,7 +57,7 @@
 
                 <div class="flex gap-5 flex-col">
                     <div v-for="(item,key) in data">
-                        <Card :title="key" :data="item" :path="url"></Card>
+                        <Card :title="key" :data="item" :path="keyParam"></Card>
                     </div>
                 </div>
             </UCard>
@@ -59,20 +65,28 @@
 </template>
 
 <script setup>
-    import sliderData from '../../public/paramSlider.json'
+    import sliderData from '/src/paramSlider.json'
 
     const {title,data,path} = defineProps(['title','data','path'])
 
-    const value = ref(data)
+    const paramValue = ref(data)
     const runtimeConfig = useRuntimeConfig();
     const url = 'http://' + runtimeConfig.public.robotIP + ':5820/param/';
     const keyParam = path + `/${title}`
 
+    const isObject = (value) => typeof value === 'object' && value !== null;
+    const isPathSlider = (value) => sliderData.hasOwnProperty(value)
+    const isDataBoolean = (value) => typeof value === 'boolean'
+
     async function updateData() {
+        if(isDataBoolean(paramValue.value)){
+            paramValue.value = !paramValue.value
+        }
+        console.log(`Updating "${keyParam}" value to ${paramValue.value}`)
         await $fetch(url,{
-            method: 'PATCH',
+            method: 'patch',
             header: {"content-Type":"application/json"},
-            body: {[`${keyParam}`]:data}
+            body: {[`${keyParam}`]:paramValue.value}
         }).then((res) =>{
             console.log(`The value of ${url} successfully updated!`);
         }).catch((err)=>{
@@ -80,7 +94,4 @@
         })
     }
 
-    const isObject = (value) => typeof value === 'object' && value !== null;
-    const isPathSlider = (value) => sliderData.hasOwnProperty(url)
-    const isDataBoolean = (value) => typeof value === 'boolean'
 </script>

@@ -1,9 +1,5 @@
 <template>
-    <div class="mx-[10em] mt-[3em] mb-[3em]">
-        <div>
-            <div>Viewer Gambar:</div>
-            <StreamViewer></StreamViewer>
-        </div>
+    <div class="mx-[10em] mb-[3em]">
         <Cards :data="filteredData" :head="``"></Cards>
     </div>
 </template>
