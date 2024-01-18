@@ -1,6 +1,5 @@
 <template>
     <div class="mx-[15em] mt-[3em] mb-[3em]">
-        ini log
         <Cards :data="dataAPI['log'][id]" :head="`/log/${id}`"></Cards>
     </div>
 </template>

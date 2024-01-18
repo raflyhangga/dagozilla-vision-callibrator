@@ -16,7 +16,7 @@
                             v-on:mouseup="updateData"
                          />
                         <div class="w-[5em]">
-                            <UInput v-model="paramValue" type="number"/>
+                            <UInput v-model="paramValue" type="number" v-on:keyup="updateData"/>
                         </div>
                     </div>
                 </UCard>

@@ -34,7 +34,7 @@
                         </div>
                     </template>
                     <div>
-                        <canvas :id="`cropped${detect}`" :class="{'w-0':!isCroped,'h-0':!isCroped,'mt-2':isCroped}" class="rounded-md mx-auto"/>
+                        <canvas :id="`cropped${detect}`" :class="{'w-0':!isCroped,'h-0':!isCroped,'mt-2':isCroped}" class="rounded-md mx-auto shadow-md"/>
                         <div v-if="isCroped">
                             <UButton
                                 label="Send"
@@ -91,13 +91,13 @@
         }
 
     const handleCropper = () => {
-        isCroped.value = !isCroped.value
         const croppedCanvas = cropper.value.getCroppedCanvas();
-
+        
         const canvas = document.querySelector('#cropped'+detect);
         const context = canvas.getContext('2d');
-
+        
         if (croppedCanvas.width * croppedCanvas.height < 25000) {
+            isCroped.value = !isCroped.value
             canvas.width = croppedCanvas.width;
             canvas.height = croppedCanvas.height;
 
