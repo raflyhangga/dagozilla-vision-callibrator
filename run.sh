@@ -11,4 +11,5 @@ export  VUE_APP_ROBOT=$1
 
 # Run Nuxt 3 application
 npm install
-npm run dev
+npm run build
+npm run preview

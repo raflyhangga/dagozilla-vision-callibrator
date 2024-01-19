@@ -72,28 +72,12 @@
 
     const paramValue = ref(data)
     const runtimeConfig = useRuntimeConfig();
-    const url = 'http://' + runtimeConfig.public.robotIP + ':5820/param/';
+    const url = 'http://' + runtimeConfig.public.robotIP + ':5820/param';
     const keyParam = path + `/${title}`
 
     const isObject = (value) => typeof value === 'object' && value !== null;
     const isPathSlider = (value) => sliderData.hasOwnProperty(value)
     const isDataBoolean = (value) => typeof value === 'boolean'
-
-    // async function updateData() {
-    //     if(isDataBoolean(paramValue.value)){
-    //         paramValue.value = !paramValue.value
-    //     }
-    //     console.log(`Updating "${keyParam}" value to ${paramValue.value}`)
-    //     await $fetch(url,{
-    //         method: 'patch',
-    //         header: {"content-Type":"application/json"},
-    //         body: {[`${keyParam}`]:paramValue.value}
-    //     }).then((res) =>{
-    //         console.log(`The value of ${url} successfully updated!`);
-    //     }).catch((err)=>{
-    //         console.log(err.message);
-    //     })
-    // }
 
     function updateData() {
         if(isDataBoolean(paramValue.value)){

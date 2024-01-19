@@ -75,7 +75,7 @@
     const isCroped = ref(false)
     const pictureTaken = ref(false)
     const cropper = ref()
-    const urlSend = 'http://' + runtimeConfig.public.robotIP + ':5820/param/'
+    const urlSend = 'http://' + runtimeConfig.public.robotIP + ':5820/param'
     const urlStream = 'http://' + runtimeConfig.public.robotIP + ':5812/stream?topic=/log/camera_task/median_blur_image';
     const urlSnap = 'http://' + runtimeConfig.public.robotIP + ':5812/snapshot?topic=/log/camera_task/median_blur_image';
     
@@ -186,17 +186,6 @@
                 .catch((err) => {
                     console.log(err.message);
                 });
-
-            // FOR DEPLOYING ONLY
-            // $fetch(urlSend,{
-            //     method: 'PATCH',
-            //     header: {"content-Type":"application/json"},
-            //     body: colorParam
-            //     }).then((res) =>{
-            //         console.log(`The value of ${url} successfully updated!`);
-            //     }).catch((err)=>{
-            //         console.log(err.message);
-            //     })
         }
         catch(err){
             console.log(err.message)
