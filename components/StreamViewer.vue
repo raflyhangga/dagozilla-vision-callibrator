@@ -75,9 +75,9 @@
     const isCroped = ref(false)
     const pictureTaken = ref(false)
     const cropper = ref()
-    const urlSend = 'http://' + runtimeConfig.public.robotIP + ':5820/param'
-    const urlStream = 'http://' + runtimeConfig.public.robotIP + ':5812/stream?topic=/log/camera_task/median_blur_image';
-    const urlSnap = 'http://' + runtimeConfig.public.robotIP + ':5812/snapshot?topic=/log/camera_task/median_blur_image';
+    const urlSend = runtimeConfig.public.robotIP + ':'+ runtimeConfig.public.portParam +'/param'
+    const urlStream = runtimeConfig.public.robotIP + ':'+ runtimeConfig.public.portViewer  +'/stream?topic=/log/camera_task/median_blur_image';
+    const urlSnap = runtimeConfig.public.robotIP + ':'+ runtimeConfig.public.portViewer +'/snapshot?topic=/log/camera_task/median_blur_image';
     
 
     const handleOpenModal=()=>{

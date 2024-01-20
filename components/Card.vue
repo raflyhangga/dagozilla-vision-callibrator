@@ -72,7 +72,7 @@
 
     const paramValue = ref(data)
     const runtimeConfig = useRuntimeConfig();
-    const url = 'http://' + runtimeConfig.public.robotIP + ':5820/param';
+    const url = runtimeConfig.public.robotIP + ':'+runtimeConfig.public.portParam+'/param';
     const keyParam = path + `/${title}`
 
     const isObject = (value) => typeof value === 'object' && value !== null;

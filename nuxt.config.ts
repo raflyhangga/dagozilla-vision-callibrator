@@ -21,7 +21,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      robotIP: process.env.VUE_APP_ROBOT
+      robotIP: process.env.URL_PARAM,
+      portParam: process.env.PARAM_PORT,
+      portViewer: process.env.STREAMER_PORT
     }
   },
   css:['~/assets/css/cropper.css']

@@ -9,7 +9,7 @@
 
 <script setup>
     const runtimeConfig = useRuntimeConfig();
-    const url = 'http://' + runtimeConfig.public.robotIP + ':5820/param/';
+    const url = runtimeConfig.public.robotIP + ':' + runtimeConfig.public.portParam + '/param/';
     const {data} = await useFetch(url)
     const dataAPI = data.value
 
